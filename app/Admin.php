@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Role;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Notifications\AdminResetPasswordNotification;
@@ -40,4 +41,16 @@ class Admin extends Authenticatable
         $this->notify(new AdminResetPasswordNotification($token));
     }
 
+
+    /*======================================================
+    |   
+    |   relationships
+    */
+
+    public function role()
+    {
+
+        return $this->belongsToMany(Role::class, 'role_admins');
+
+    }
 }
