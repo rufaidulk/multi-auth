@@ -27,4 +27,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Default value for the status of the user, i.e 1 or active and 0 for inactive
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'status' => 1,
+    ];
 }
