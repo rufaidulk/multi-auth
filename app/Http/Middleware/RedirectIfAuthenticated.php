@@ -23,7 +23,20 @@ class RedirectIfAuthenticated
             
                 if (Auth::guard($guard)->check()) {
             
-                    return redirect('admin/home');
+                    foreach (Auth::guard($guard)->user()->role as $role) {
+            
+                        if ($role->name == "admin") {
+                            
+                            return redirect('admin/home');
+
+                        } elseif ($role->name == "editor") {
+                
+                            return redirect('admin/editor');
+
+                        }
+                    }
+                    
+                    //return redirect('admin/home');
             
                 }
             
