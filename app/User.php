@@ -34,6 +34,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $attributes = [
-        'status' => 1,
+        'status' => 0,
     ];
+    
 }
