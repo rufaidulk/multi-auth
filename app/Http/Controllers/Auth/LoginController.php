@@ -71,7 +71,8 @@ class LoginController extends Controller
 
             $OTP = rand(100000, 999999);
             
-            
+            Cache::put(['OTP' => $OTP], now()->addSeconds(20));
+
             Mail::to('rufaidul.inmail@gmail.com')->send(new OTPMail($OTP));
 
         }
