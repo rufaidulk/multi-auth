@@ -19,11 +19,8 @@ class LoginTest extends TestCase
      */
     public function afterLoginUserCannotAccessTheHomePageUntilVerified()
     {
-        $user = factory(User::class)->create();
-
-        $this->actingAs($user);
-
-        $this->get('/home')->assertRedirect('/');
+        $this->logInUser();
+        $this->get('/home')->assertRedirect('/verifyOTP');
     }
 
     /**
@@ -34,9 +31,7 @@ class LoginTest extends TestCase
      */
     public function afterLoginUserCanAccessTheHomePageIfVerified()
     {
-        $user = factory(User::class)->create(['isVerified' => 1]);
-
-        $this->actingAs($user);
+        $this->logInUser(['isVerified' => 1]);
 
         $this->get('/home')->assertStatus(200);
     }
