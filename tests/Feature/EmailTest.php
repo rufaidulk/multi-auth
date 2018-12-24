@@ -23,7 +23,6 @@ class EmailTest extends TestCase
     public function anOtpEmailIsSendWhenUserIsLoggedIn()
     {	
     	Mail::fake();
-    	$this->withoutExceptionHandling();
         $user = factory(User::class)->create();
         $res = $this->post('/login', ['email' => $user->email, 'password' => 'secret']);
         Mail::assertSent(OTPMail::class);
@@ -40,11 +39,29 @@ class EmailTest extends TestCase
     public function anOtpEmailIsNotSendIfCredentialsAreIncorrect()
     {   
         Mail::fake();
-        //$this->withoutExceptionHandling();
+        $this->withExceptionHandling();
         $user = factory(User::class)->create();
         $res = $this->post('/login', ['email' => $user->email, 'password' => 'secreeee']);
         Mail::assertNotSent(OTPMail::class);
 
 
     }
+
+    /**
+     * A basic test example.
+     *
+     * @return void
+     * @test 
+     */
+    public function otpIsStoredInCacheForTheUser()
+    {   
+        
+        $user = factory(User::class)->create();
+        $res = $this->post('/login', ['email' => $user->email, 'password' => 'secret']);
+        $this->assertNotNull($user->OTP());
+
+
+    }
+
+
 }

@@ -6,6 +6,7 @@ use App\Mail\OTPMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -69,10 +70,7 @@ class LoginController extends Controller
 
         if ($result) {
 
-            $OTP = rand(100000, 999999);
-            
-            
-            Mail::to('rufaidul.inmail@gmail.com')->send(new OTPMail($OTP));
+            auth()->user()->sendOTP($request->email);
 
         }
 

@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Mail\OTPMail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'lastname', 'email', 'password',
+        'name', 'lastname', 'email', 'password', 'isVerified'
     ];
 
     /**
@@ -36,4 +39,34 @@ class User extends Authenticatable
     protected $attributes = [
         'status' => 1,
     ];
+
+    public function OTP()
+    {
+
+        return Cache::get($this->OTPKey());
+
+    }
+
+    public function OTPKey()
+    {
+        return "OTP_for_{$this->id}";
+    }
+
+    public function cacheTheOTP()
+    {
+
+        $OTP = rand(100000, 999999);
+        Cache::put([$this->OTPKey() => $OTP], now()->addSeconds(20));
+
+        return $OTP;
+
+    }
+
+    public function sendOTP($email)
+    {
+
+        Mail::to($email)->send(new OTPMail($this->cacheTheOTP()));
+
+    }
+
 }

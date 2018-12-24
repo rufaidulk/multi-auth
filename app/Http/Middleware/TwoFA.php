@@ -21,6 +21,6 @@ class TwoFA
 
         }
 
-        return redirect('/');
+        return redirect('/verifyOTP');
     }
 }
