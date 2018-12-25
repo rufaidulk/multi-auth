@@ -24,6 +24,7 @@ Route::group(['middleware' => 'TwoFA'], function() {
 });
 Route::get('/verifyOTP', 'VerifyOTPController@showVerifyForm');
 Route::post('/verifyOTP', 'VerifyOTPController@verify');
+Route::post('/resendOTP', 'VerifyOTPController@resend');
 
 //--------- Admin routes -------------------//
 

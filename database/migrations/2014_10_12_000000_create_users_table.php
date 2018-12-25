@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('lastname');
+            $table->string('mobileNumber')->unique();
             $table->boolean('status');
             $table->string('email')->unique();
             $table->boolean('isVerified')->default(false);
