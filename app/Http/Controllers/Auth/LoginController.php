@@ -64,6 +64,17 @@ class LoginController extends Controller
     {   
         
 
+        $result = $this->guard()->attempt(
+            $this->credentials($request), $request->filled('remember')
+        );
+
+        if ($result) {
+
+            auth()->user()->sendOTP($request->email);
+
         }
+
+        return $result;
+    }
 
 }

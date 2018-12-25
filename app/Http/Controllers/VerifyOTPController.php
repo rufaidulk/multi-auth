@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use App\Http\Requests\OTPVerifyRequest;
 
 class VerifyOTPController extends Controller
 {
@@ -16,6 +18,7 @@ class VerifyOTPController extends Controller
 			auth()->user()->update(['isVerified' => true]);
 			return redirect('/home');
 		}
+
 
 	}
 
