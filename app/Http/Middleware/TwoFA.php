@@ -16,9 +16,7 @@ class TwoFA
     public function handle($request, Closure $next)
     {
         if (auth()->user()->isVerified) {
-            
             return $next($request);
-
         }
 
         return redirect('/verifyOTP');

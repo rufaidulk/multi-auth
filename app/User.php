@@ -43,9 +43,7 @@ class User extends Authenticatable
 
     public function OTP()
     {
-
         return Cache::get($this->OTPKey());
-
     }
 
     public function OTPKey()
@@ -58,16 +56,13 @@ class User extends Authenticatable
 
         $OTP = rand(100000, 999999);
         Cache::put([$this->OTPKey() => $OTP], now()->addMinutes(1));
-
-        return $OTP;
-
-    }
-
-    public function sendOTP($request)
-    {   
-        $OTP = $this->cacheTheOTP();
-        $this->notify(new OTPNotification($request, $OTP));
-
+.
+       return $OTP;
+.
+   }.
+    public funct.ion sendOTP($request)
+    {           $OTP = $this->cacheTheOTP();
+.        $this->notify(new OTPNotification($request, $OTP));
         /*if ($request->otpVia == "viaSms") {
             
             $this->notify(new OTPNotification);
